@@ -1,20 +1,19 @@
 package com.pluralsight.models;
 
 public class SalesContract extends Contract {
-    // change to initializing in constructor
     private final double SALES_TAX;
     private final double RECORDING_FEE;
     private final double PROCESSING_FEE; // 295 for under 10k
     private boolean finance;
-    private double monthlyPayment;
 
-    SalesContract(String date, String customerName, String customerEmail, Vehicle  vehicleSold, double totalPrice, double monthlyPayment) {
+    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice, double monthlyPayment, double SALES_TAX, double RECORDING_FEE, double PROCESSING_FEE, boolean finance) {
         super(date, customerName, customerEmail, vehicleSold, totalPrice, monthlyPayment);
-        this.SALES_TAX = 0.05;
-        this.RECORDING_FEE = 100;
-        this.PROCESSING_FEE = totalPrice < 10000? 295 : 495;
-        this.monthlyPayment = monthlyPayment;
+        this.SALES_TAX = SALES_TAX;
+        this.RECORDING_FEE = RECORDING_FEE;
+        this.PROCESSING_FEE = PROCESSING_FEE;
+        this.finance = finance;
     }
+
     public double getSALES_TAX() {
         return SALES_TAX;
     }
@@ -34,15 +33,20 @@ public class SalesContract extends Contract {
 
     @Override
     public double getMonthlyPayment() {
-        return monthlyPayment;
+        if(finance) {
+            final double BELOW_10K_RATE = 0.0525;
+            final double ABOVE_10K_RATE = 0.0425;
+            final double PRICE = super.totalPrice;
+
+            return PRICE > 10000 ? (PRICE * ABOVE_10K_RATE) : (PRICE * BELOW_10K_RATE);
+        } else return 0;
     }
     @Override
     public double getTotalPrice() {
-        return monthlyPayment;
-    }
-    @Override
-    public String toString() {
-        return super.toString();
-    }
+        final double BELOW_10K = 24;
+        final double ABOVE_10K = 48;
+        final double PRICE = super.totalPrice;
 
+        return PRICE > 10000 ? this.getMonthlyPayment() * ABOVE_10K : this.getMonthlyPayment() * BELOW_10K;
+    }
 }
