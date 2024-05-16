@@ -9,6 +9,16 @@ abstract class Contract {
     double monthlyPayment;
     // <editor-fold desc=" Getters and Setters ">
 
+    public Contract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice,
+                    double monthlyPayment){
+        this.date = date;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.vehicleSold = vehicleSold;
+        this.totalPrice = totalPrice;
+        this.monthlyPayment = monthlyPayment;
+    }
+
     public String getDate() {
         return date;
     }
@@ -45,14 +55,6 @@ abstract class Contract {
     abstract double getTotalPrice();
 
     abstract double getMonthlyPayment();
-    public Contract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice,
-                    double monthlyPayment){
-        this.date = date;
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.vehicleSold = vehicleSold;
-        this.totalPrice = totalPrice;
-        this.monthlyPayment = monthlyPayment;
-    }
+
 }
 
