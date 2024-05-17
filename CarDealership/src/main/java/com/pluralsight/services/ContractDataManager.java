@@ -13,7 +13,7 @@ public class ContractDataManager {
 
     public void saveContract(Contract contract) {
         File file = new File(DIRECTORY + "/" + CONTRACT_FILE);
-        try (PrintWriter writer = new PrintWriter(new FileWriter(file), true)) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(file,true), true)) {
             // for each write
             /*
                 Type = Sale or Lease
@@ -48,10 +48,10 @@ public class ContractDataManager {
                 type = "LEASE";
                 finance = "no";
                 salesTax = 0;
-                processingFee = 0;
+                processingFee = ((LeaseContract) contract).getLEASE_FEE();
             }
             Vehicle vehicleSold = contract.getVehicleSold();
-            writer.printf("%s|%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|%.2f|100|%.0f|%.2f|%s|%.2f",
+            writer.printf("%s|%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|%.2f|100|%.0f|%.2f|%s|%.2f\n",
                     type,
                     contract.getDate(),
                     contract.getCustomerName(),

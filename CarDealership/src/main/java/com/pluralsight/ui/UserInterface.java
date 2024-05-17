@@ -92,10 +92,9 @@ public class UserInterface {
     private void processContract() {
         System.out.println("""
         Would you like to: 
-         1.lease 
-         2. buy a vehicle today? 
-         """
-        );
+         1.Lease
+         2.Buy a vehicle
+         """);
         try {
             int choice = Integer.parseInt(userInput.nextLine().strip());
             if(choice == 1){
