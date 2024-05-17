@@ -47,7 +47,8 @@ public class SalesContract extends Contract {
         final double BELOW_10K = 24;
         final double ABOVE_10K = 48;
         final double PRICE = super.totalPrice;
+        final double FEES = RECORDING_FEE + SALES_TAX + PROCESSING_FEE;
 
-        return (PRICE > 10000 ? this.getMonthlyPayment() * ABOVE_10K : this.getMonthlyPayment() * BELOW_10K)  + SALES_TAX + PROCESSING_FEE;
+        return isFinance() ? ((PRICE > 10000 ? this.getMonthlyPayment() * ABOVE_10K : this.getMonthlyPayment() * BELOW_10K) + FEES) : (PRICE + FEES);
     }
 }
