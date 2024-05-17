@@ -1,4 +1,4 @@
-package CarDealership.src.main.java.com.pluralsight.ui;
+package com.pluralsight.ui;
 
 import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;
@@ -35,6 +35,7 @@ public class UserInterface {
                 "\t[7] - List All Vehicles\n" +
                 "\t[8] - Add a Vehicle\n" +
                 "\t[9] - Remove a Vehicle\n" +
+                "\t[0] - Add a new contract\n " + 
                 "\t[99] - Quit"
         );
 
@@ -70,6 +71,8 @@ public class UserInterface {
                     processRemoveVehicleRequest();
                     publish();
                     break;
+                case 0:
+                    processContract();
                 case 99:
                     System.out.println("All changes to dealership.csv has been saved.");
                     System.exit(0);
@@ -82,6 +85,29 @@ public class UserInterface {
             }
         }
     }
+
+    private void processContract() {
+        System.out.println("""
+        Would you like to: 
+         1.lease 
+         2. buy a vehicle today? 
+         """
+        );
+        try {
+            int choice = Integer.parseInt(userInput.nextLine().strip());
+            if(choice == 1){
+
+            }
+        } catch(Exception e){
+            System.out.println("That key is invalid.");
+        }
+
+    }
+
+    private void processLeaseContract(){
+        
+    }
+
     // <editor-fold desc="Processes">
     private void processGetByPriceRequest() {
         try{
