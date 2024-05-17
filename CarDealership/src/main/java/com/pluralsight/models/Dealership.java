@@ -91,4 +91,15 @@ public class Dealership {
                         vehicle.getVehicleType()
                 ));
     }
+    public Vehicle getVehicleByVin(int vin){
+        for(Vehicle vehicle: inventory){
+            if(vin == vehicle.getVin()){
+                return vehicle;
+            }
+
+        }
+        System.out.println("Vehicle is not found. ");
+        return null;
+
+    }
 }

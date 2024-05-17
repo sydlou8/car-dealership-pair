@@ -1,7 +1,10 @@
 package com.pluralsight.ui;
 
 import com.pluralsight.models.Dealership;
+import com.pluralsight.models.LeaseContract;
+import com.pluralsight.models.SalesContract;
 import com.pluralsight.models.Vehicle;
+import com.pluralsight.services.ContractDataManager;
 import com.pluralsight.services.DealershipFileManager;
 
 import java.util.Scanner;
@@ -96,7 +99,9 @@ public class UserInterface {
         try {
             int choice = Integer.parseInt(userInput.nextLine().strip());
             if(choice == 1){
-
+                processLeaseContract();
+            } else {
+                processSalesContract();
             }
         } catch(Exception e){
             System.out.println("That key is invalid.");
@@ -105,7 +110,48 @@ public class UserInterface {
     }
 
     private void processLeaseContract(){
-        
+        System.out.println("Please enter your name");
+        String name = userInput.nextLine().strip();
+        System.out.println("Please enter your Email address");
+        String customerEmail = userInput.nextLine().strip();
+
+        Vehicle vehicle;
+        do {
+            System.out.println("Please enter the VIN number of the vehicle you would like to lease.");
+            vehicle = dealership.getVehicleByVin(Integer.parseInt(userInput.nextLine().strip()));
+        } while(vehicle == null);
+
+        LeaseContract leaseContract = new LeaseContract(name,customerEmail,vehicle);
+        ContractDataManager cdm = new ContractDataManager();
+        cdm.saveContract(leaseContract);
+    }
+
+    private void processSalesContract(){
+        System.out.println("Please enter your name");
+        String name = userInput.nextLine().strip();
+        System.out.println("Please enter your Email address");
+        String customerEmail = userInput.nextLine().strip();
+        System.out.println("""
+        Would you like to :
+         1. finance 
+         2. buy out your vehicle
+        """);
+        int financeChoice = Integer.parseInt(userInput.nextLine().strip());
+        boolean finance;
+        if(financeChoice == 1){
+            finance = true;
+        } else {
+            finance = false;
+        }
+
+        Vehicle vehicle;
+        do {
+            System.out.println("Please enter the VIN number of the vehicle you would like to lease.");
+            vehicle = dealership.getVehicleByVin(Integer.parseInt(userInput.nextLine().strip()));
+        } while(vehicle == null);
+        SalesContract salesContract = new SalesContract(name,customerEmail, vehicle, finance);
+        ContractDataManager cdm = new ContractDataManager();
+        cdm.saveContract(salesContract);
     }
 
     // <editor-fold desc="Processes">

@@ -12,16 +12,15 @@ public abstract class Contract {
     double monthlyPayment;
     // <editor-fold desc=" Getters and Setters ">
 
-    public Contract(String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice,
-                    double monthlyPayment){
+    public Contract(String customerName, String customerEmail, Vehicle vehicleSold){
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.date = now.format(formatter);
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
-        this.totalPrice = totalPrice;
-        this.monthlyPayment = monthlyPayment;
+        this.totalPrice = vehicleSold.getPrice();
+
     }
 
     public String getDate() {

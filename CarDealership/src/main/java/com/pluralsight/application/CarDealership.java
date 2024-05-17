@@ -1,5 +1,6 @@
 package com.pluralsight.application;
 
+import com.pluralsight.models.Vehicle;
 import com.pluralsight.ui.UserInterface;
 
 public class CarDealership {
@@ -7,4 +8,6 @@ public class CarDealership {
         UserInterface userInterface = new UserInterface();
         userInterface.display();
     }
+
+
 }

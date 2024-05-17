@@ -6,12 +6,13 @@ public class SalesContract extends Contract {
     private final double PROCESSING_FEE; // 295 for under 10k
     private boolean finance;
 
-    public SalesContract(String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice, double monthlyPayment, double SALES_TAX, double RECORDING_FEE, double PROCESSING_FEE, boolean finance) {
-        super(customerName, customerEmail, vehicleSold, totalPrice, monthlyPayment);
+    public SalesContract(String customerName, String customerEmail, Vehicle vehicleSold, boolean finance) {
+        super(customerName, customerEmail, vehicleSold);
         this.SALES_TAX = 0.05 * totalPrice;
-        this.RECORDING_FEE = RECORDING_FEE;
-        this.PROCESSING_FEE = PROCESSING_FEE;
+        this.RECORDING_FEE = 100;
+        this.PROCESSING_FEE = vehicleSold.getPrice() > 10000 ? 495 : 295;
         this.finance = finance;
+
     }
 
     public double getSALES_TAX() {
