@@ -1,4 +1,4 @@
-package CarDealership.src.main.java.com.pluralsight.ui;
+package com.pluralsight.ui;
 
 import com.pluralsight.models.Dealership;
 import com.pluralsight.models.Vehicle;

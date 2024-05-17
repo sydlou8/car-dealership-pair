@@ -1,6 +1,9 @@
 package com.pluralsight.models;
 
-abstract class Contract {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public abstract class Contract {
     String date;
     String customerName;
     String customerEmail;
@@ -9,9 +12,11 @@ abstract class Contract {
     double monthlyPayment;
     // <editor-fold desc=" Getters and Setters ">
 
-    public Contract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice,
+    public Contract(String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice,
                     double monthlyPayment){
-        this.date = date;
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.date = now.format(formatter);
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
@@ -52,9 +57,9 @@ abstract class Contract {
     }
     //</editor-fold>
 
-    abstract double getTotalPrice();
+    public abstract double getTotalPrice();
 
-    abstract double getMonthlyPayment();
+    public abstract double getMonthlyPayment();
 
 }
 
