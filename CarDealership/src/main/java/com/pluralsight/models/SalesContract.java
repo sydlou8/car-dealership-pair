@@ -34,13 +34,20 @@ public class SalesContract extends Contract {
 
     @Override
     public double getMonthlyPayment() {
-        if(finance) {
-            final double BELOW_10K_RATE = 0.0525;
-            final double ABOVE_10K_RATE = 0.0425;
+        /*if(finance) {
+            final double BELOW_10K = 24;
+            final double ABOVE_10K = 48;
             final double PRICE = super.totalPrice;
+            return PRICE > 10000 ? this.getTotalPrice() / ABOVE_10K : this.getTotalPrice() / BELOW_10K ;
+        } else return 0;*/
+        final double BELOW_10K_RATE = 0.0525;
+        final double ABOVE_10K_RATE = 0.0425;
+        final double BELOW_10K = 24;
+        final double ABOVE_10K = 48;
+        final double PRICE = super.totalPrice;
+        final double FEES = RECORDING_FEE + SALES_TAX + PROCESSING_FEE;
 
-            return PRICE > 10000 ? (PRICE * ABOVE_10K_RATE) : (PRICE * BELOW_10K_RATE);
-        } else return 0;
+        return isFinance() ? (PRICE > 10000 ? emi_calculator(PRICE, ABOVE_10K_RATE, ABOVE_10K) : emi_calculator(PRICE, BELOW_10K_RATE, BELOW_10K)) : (PRICE + FEES);
     }
     @Override
     public double getTotalPrice() {
@@ -49,6 +56,8 @@ public class SalesContract extends Contract {
         final double PRICE = super.totalPrice;
         final double FEES = RECORDING_FEE + SALES_TAX + PROCESSING_FEE;
 
-        return isFinance() ? ((PRICE > 10000 ? this.getMonthlyPayment() * ABOVE_10K : this.getMonthlyPayment() * BELOW_10K) + FEES) : (PRICE + FEES);
+        return isFinance() ? (PRICE > 10000 ? (this.getMonthlyPayment() * ABOVE_10K) + FEES : (this.getMonthlyPayment() * BELOW_10K) + FEES) : (PRICE + FEES);
     }
+
+
 }

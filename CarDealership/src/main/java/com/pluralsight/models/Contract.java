@@ -60,5 +60,12 @@ public abstract class Contract {
 
     public abstract double getMonthlyPayment();
 
+    public double emi_calculator(double p, double r, double t) {
+        // ESTIMATED MONTHLY INSTALLMENT
+        // E = (P * r * (1+r)n) / ((1+r)n – 1)
+        //( 20000 * 0.0425 * (1 + 0.0425)^48 ) / (((1+0.0425)^48) - 1)
+        return (p * r * (double)Math.pow(1 + r, t))
+                / (double)(Math.pow(1 + r, t) - 1);
+    }
 }
 
