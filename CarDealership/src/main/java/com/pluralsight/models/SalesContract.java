@@ -58,6 +58,4 @@ public class SalesContract extends Contract {
 
         return isFinance() ? (PRICE > 10000 ? (this.getMonthlyPayment() * ABOVE_10K) + FEES : (this.getMonthlyPayment() * BELOW_10K) + FEES) : (PRICE + FEES);
     }
-
-
 }
