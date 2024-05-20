@@ -75,7 +75,7 @@ public class LeaseContract extends Contract{
 based on the functionality 
 
 ### Example Outcome
-
+![Lease Contract](CarDealership/media/Lease.png)
 ## Sales Contract
 ### Example Code
 ```java
@@ -119,7 +119,59 @@ Exactly just like LeaseContract `super` function is used to construct the super/
 based on the functionality.
 
 ### Example Outcome
+![SalesContract](CarDealership/media/Finance.png)
 
+## ContractDataManager
+```java
+public class ContractDataManager {
+    final String CONTRACT_FILE = "contracts.csv";
+    final String DIRECTORY = "file";
+
+    public void saveContract(Contract contract) {
+        File file = new File(DIRECTORY + "/" + CONTRACT_FILE);
+        try (PrintWriter writer = new PrintWriter(new FileWriter(file,true), true)) {
+            String type;
+            String finance;
+            double salesTax;
+            double processingFee;
+            if(contract instanceof SalesContract) {
+                type = "SALE";
+                finance = ((SalesContract) contract).isFinance() ? "yes" : "no";
+                salesTax = ((SalesContract) contract).getSALES_TAX();
+                processingFee = ((SalesContract) contract).getPROCESSING_FEE();
+            } else {
+                type = "LEASE";
+                finance = "no";
+                salesTax = 0;
+                processingFee = ((LeaseContract) contract).getLEASE_FEE();
+            }
+            Vehicle vehicleSold = contract.getVehicleSold();
+            writer.printf("%s|%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|%.2f|100|%.0f|%.2f|%s|%.2f\n",
+                    type,
+                    contract.getDate(),
+                    contract.getCustomerName(),
+                    contract.getCustomerEmail(),
+                    vehicleSold.getVin(),
+                    vehicleSold.getYear(),
+                    vehicleSold.getMake(),
+                    vehicleSold.getModel(),
+                    vehicleSold.getVehicleType(),
+                    vehicleSold.getColor(),
+                    vehicleSold.getOdometer(),
+                    vehicleSold.getPrice(),
+                    salesTax,
+                    processingFee,
+                    contract.getTotalPrice(),
+                    finance,
+                    contract.getMonthlyPayment()
+            );
+        } catch (IOException e) {
+            System.out.println("ERROR: " + e);
+        }
+    }
+}
+```
+This just writes the vehicle in contract to a contracts.csv file based on Lease or Buy
 ## Pros and Cons
 > Pros: 
 > 1. We were able to get the job done effiently
